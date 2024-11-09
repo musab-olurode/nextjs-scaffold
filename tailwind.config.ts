@@ -21,7 +21,6 @@ const config = {
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',
-				'border-light': 'rgba(255, 255, 255, 0.2)',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
@@ -30,7 +29,6 @@ const config = {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))',
 				},
-				'primary-2': '#FFDE21',
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
 					foreground: 'hsl(var(--secondary-foreground))',
@@ -55,7 +53,6 @@ const config = {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))',
 				},
-				'dashboard-black': '#171616',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -78,10 +75,6 @@ const config = {
 			},
 			fontFamily: {
 				sans: ['var(--font-sans)', ...fontFamily.sans],
-			},
-			backgroundImage: {
-				'custom-gradient':
-					'linear-gradient(102deg, rgba(3, 5, 29, 0.85) 2.11%, rgba(255, 0, 0, 0.85) 100%)',
 			},
 		},
 	},
