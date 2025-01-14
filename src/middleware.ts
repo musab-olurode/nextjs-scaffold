@@ -13,7 +13,7 @@ export default async function middleware(req: NextRequest) {
 	const isPublicRoute = publicRoutes.includes(path);
 
 	// 3. Decrypt the session from the cookie
-	const cookie = cookies().get('accessToken')?.value;
+	const cookie = (await cookies()).get('accessToken')?.value;
 	const session = await decrypt(cookie);
 
 	// 5. Redirect to /admin if the user is not authenticated
