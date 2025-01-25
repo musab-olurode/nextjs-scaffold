@@ -1,3 +1,5 @@
+import { ModifiedAxiosRequestConfig } from '~/lib/api/types';
+
 import axios from 'axios';
 
 const baseURL = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/v1`;
@@ -14,9 +16,12 @@ axiosInstance.interceptors.response.use(
 		const statusCode = error.response?.status;
 
 		// eslint-disable-next-line no-underscore-dangle
-		if (statusCode === 401 && !(originalRequest as any)._retry) {
+		if (
+			statusCode === 401 &&
+			!(originalRequest as ModifiedAxiosRequestConfig)._retry
+		) {
 			// eslint-disable-next-line no-underscore-dangle
-			(originalRequest as any)._retry = true;
+			(originalRequest as ModifiedAxiosRequestConfig)._retry = true;
 
 			try {
 				await axios.post(`${baseURL}/auth/refresh`, null, {
@@ -24,7 +29,7 @@ axiosInstance.interceptors.response.use(
 				});
 
 				return axiosInstance.request(originalRequest);
-			} catch (err) {
+			} catch {
 				await axios.post(`${baseURL}/auth/signout`, null, {
 					withCredentials: true,
 				});

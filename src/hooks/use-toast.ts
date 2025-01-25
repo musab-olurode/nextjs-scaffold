@@ -15,21 +15,20 @@ type ToasterToast = ToastProps & {
 	action?: ToastActionElement;
 };
 
-const actionTypes = {
-	ADD_TOAST: 'ADD_TOAST',
-	UPDATE_TOAST: 'UPDATE_TOAST',
-	DISMISS_TOAST: 'DISMISS_TOAST',
-	REMOVE_TOAST: 'REMOVE_TOAST',
-} as const;
+type ActionType = {
+	ADD_TOAST: 'ADD_TOAST';
+	UPDATE_TOAST: 'UPDATE_TOAST';
+	DISMISS_TOAST: 'DISMISS_TOAST';
+	REMOVE_TOAST: 'REMOVE_TOAST';
+};
 
 let count = 0;
 
 function genId() {
 	count = (count + 1) % Number.MAX_SAFE_INTEGER;
+
 	return count.toString();
 }
-
-type ActionType = typeof actionTypes;
 
 type Action =
 	| {
@@ -91,12 +90,12 @@ export const reducer = (state: State, action: Action): State => {
 			const { toastId } = action;
 
 			// ! Side effects ! - This could be extracted into a dismissToast() action,
-			// but I'll keep it here for simplicity
+			// But I'll keep it here for simplicity
 			if (toastId) {
 				addToRemoveQueue(toastId);
 			} else {
-				state.toasts.forEach((toast) => {
-					addToRemoveQueue(toast.id);
+				state.toasts.forEach((toastItem) => {
+					addToRemoveQueue(toastItem.id);
 				});
 			}
 
@@ -119,6 +118,7 @@ export const reducer = (state: State, action: Action): State => {
 					toasts: [],
 				};
 			}
+
 			return {
 				...state,
 				toasts: state.toasts.filter((t) => t.id !== action.toastId),
@@ -126,7 +126,7 @@ export const reducer = (state: State, action: Action): State => {
 	}
 };
 
-const listeners: Array<(state: State) => void> = [];
+const listeners: ((state: State) => void)[] = [];
 
 let memoryState: State = { toasts: [] };
 
@@ -142,10 +142,10 @@ type Toast = Omit<ToasterToast, 'id'>;
 function toast({ ...props }: Toast) {
 	const id = genId();
 
-	const update = (props: ToasterToast) =>
+	const update = (updateProps: ToasterToast) =>
 		dispatch({
 			type: 'UPDATE_TOAST',
-			toast: { ...props, id },
+			toast: { ...updateProps, id },
 		});
 	const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id });
 
@@ -173,8 +173,10 @@ function useToast() {
 
 	React.useEffect(() => {
 		listeners.push(setState);
+
 		return () => {
 			const index = listeners.indexOf(setState);
+
 			if (index > -1) {
 				listeners.splice(index, 1);
 			}

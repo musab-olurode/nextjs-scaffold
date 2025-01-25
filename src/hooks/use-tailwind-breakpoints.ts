@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { Breakpoints as TailwindBreakpoints } from '~/lib/types';
 
 const useTailwindBreakpoints = (): TailwindBreakpoints => {
@@ -15,6 +16,7 @@ const useTailwindBreakpoints = (): TailwindBreakpoints => {
 	useEffect(() => {
 		const handleResize = () => {
 			const width = window.innerWidth;
+
 			setBreakpoints({
 				sm: width >= 640,
 				md: width >= 768,

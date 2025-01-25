@@ -1,5 +1,11 @@
 'use client';
 
+import { FailureResponse, SuccessResponse } from '~/lib/api/types';
+
+import { useToast } from '~/hooks/use-toast';
+
+import { ThemeProvider } from '~/components/common/theme-provider';
+
 import {
 	isServer,
 	QueryCache,
@@ -7,9 +13,6 @@ import {
 	QueryClientProvider,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
-import { ThemeProvider } from '~/components/common/theme-provider';
-import { useToast } from '~/hooks/use-toast';
-import { FailureResponse, SuccessResponse } from '~/lib/api/types';
 
 function makeQueryClient() {
 	// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -23,6 +26,7 @@ function makeQueryClient() {
 			(error as AxiosError<FailureResponse>).response?.data.message ||
 			error.message ||
 			'There was a problem with your request.';
+
 		toast({
 			variant: 'destructive',
 			title: errorTitle,
@@ -54,10 +58,10 @@ let browserQueryClient: QueryClient | undefined = undefined;
 function getQueryClient() {
 	if (isServer) {
 		return makeQueryClient();
-	} else {
-		if (!browserQueryClient) browserQueryClient = makeQueryClient();
-		return browserQueryClient;
 	}
+	if (!browserQueryClient) browserQueryClient = makeQueryClient();
+
+	return browserQueryClient;
 }
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -65,10 +69,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 
 	return (
 		<ThemeProvider
+			disableTransitionOnChange
+			enableSystem
 			attribute='class'
 			defaultTheme='system'
-			enableSystem
-			disableTransitionOnChange
 		>
 			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 		</ThemeProvider>
