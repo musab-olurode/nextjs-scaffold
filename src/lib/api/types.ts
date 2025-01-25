@@ -1,3 +1,9 @@
+import { AxiosRequestConfig } from 'axios';
+
+export type ModifiedAxiosRequestConfig = AxiosRequestConfig & {
+	_retry: boolean;
+};
+
 export type SigninRequest = {
 	email: string;
 	password: string;
@@ -35,13 +41,4 @@ export type FailureResponse = {
 	statusCode: number;
 	message: string;
 	error: string;
-};
-
-export type ChannelInfo = {
-	statistics: {
-		viewCount: string;
-		subscriberCount: string;
-		hiddenSubscriberCount: boolean;
-		videoCount: string;
-	};
 };

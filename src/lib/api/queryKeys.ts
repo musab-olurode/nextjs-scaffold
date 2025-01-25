@@ -1,4 +1,5 @@
 const authNamespace = 'auth';
+
 export const authKeys = {
 	create: `${authNamespace}/create`,
 	read: `${authNamespace}/read`,
@@ -8,6 +9,7 @@ export const authKeys = {
 };
 
 const helloNamespace = 'hello';
+
 export const helloKeys = {
 	create: `${helloNamespace}/create`,
 	read: `${helloNamespace}/read`,
@@ -17,6 +19,7 @@ export const helloKeys = {
 };
 
 const loadingNamespace = 'loading';
+
 export const loadingKeys = {
 	state: `${loadingNamespace}/state`,
 };

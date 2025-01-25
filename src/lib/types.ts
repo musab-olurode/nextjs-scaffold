@@ -1,4 +1,4 @@
-import { ReactNode, SVGAttributes } from 'react';
+import { SVGAttributes } from 'react';
 
 export type SideNavLink = {
 	icon: (props: SVGAttributes<SVGSVGElement>) => JSX.Element;
