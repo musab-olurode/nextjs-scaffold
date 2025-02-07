@@ -2,6 +2,7 @@ import '~/styles/globals.css';
 import Providers from '~/app/providers';
 import { cn } from '~/lib/utils';
 
+import TailwindBreakpointIndicator from '~/components/common/tailwind-breakpoint-indicator';
 import { Toaster } from '~/components/ui/toaster';
 
 import type { Metadata } from 'next';
@@ -26,10 +27,11 @@ export default function RootLayout({
 		<html suppressHydrationWarning lang='en'>
 			<body
 				className={cn(
-					'bg-background min-h-screen font-sans antialiased',
+					'min-h-screen bg-background font-sans antialiased',
 					fontSans.variable,
 				)}
 			>
+				<TailwindBreakpointIndicator />
 				<Providers>{children}</Providers>
 				<Toaster />
 			</body>
