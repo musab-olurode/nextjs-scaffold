@@ -4,6 +4,7 @@ import { FailureResponse, SuccessResponse } from '~/lib/api/types';
 
 import { useToast } from '~/hooks/use-toast';
 
+import { GlobalStateInitializer } from '~/components/common/global-state-initializer';
 import { ThemeProvider } from '~/components/common/theme-provider';
 
 import {
@@ -74,7 +75,10 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 			attribute='class'
 			defaultTheme='system'
 		>
-			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+			<QueryClientProvider client={queryClient}>
+				<GlobalStateInitializer />
+				{children}
+			</QueryClientProvider>
 		</ThemeProvider>
 	);
 }

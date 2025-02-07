@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+import { decodeJwt } from 'jose';
 
-export const decrypt = (cookie = '') => {
+export const decrypt = (accessToken = '') => {
 	try {
-		const decoded = jwt.decode(cookie);
+		const decoded = decodeJwt(accessToken);
 
 		return decoded;
 	} catch (error) {

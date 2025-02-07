@@ -1,17 +1,15 @@
 import { loadingKeys } from '~/lib/api/queryKeys';
 import { STATE_QUERY_OPTIONS } from '~/lib/constants';
+import { DEFAULT_LOADING_STATE } from '~/lib/constants/state';
 
-import { useQuery, UseQueryOptions } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
-export const useLoadingState = (
-	options?: Partial<
-		UseQueryOptions<unknown, unknown, { loading: boolean }, string[]>
-	>,
-) => {
-	return useQuery({
+export const useLoadingState = () => {
+	const query = useQuery({
 		queryKey: [loadingKeys.state],
-		queryFn: () => ({ loading: false }),
-		...options,
+		initialData: DEFAULT_LOADING_STATE,
 		...STATE_QUERY_OPTIONS,
 	});
+
+	return query.data;
 };
