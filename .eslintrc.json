@@ -87,7 +87,6 @@
 		"valid-jsdoc": "warn",
 		"func-style": ["error", "declaration", { "allowArrowFunctions": true }],
 		"no-trailing-spaces": "error",
-		"capitalized-comments": "error",
 		"require-await": "error",
 		"indent": "off",
 		"max-params": "off",
