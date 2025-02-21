@@ -1,7 +1,6 @@
-import { helloKeys } from '~/lib/api/queryKeys';
-import { getHello } from '~/lib/api/requests/hello';
-
-import HelloWord from '~/components/pages/home/hello-word';
+import HelloWord from '@/components/pages/home/hello-word';
+import { helloKeys } from '@/lib/api/queryKeys';
+import { getHello } from '@/lib/api/requests/hello';
 
 import {
 	dehydrate,

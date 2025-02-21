@@ -1,6 +1,6 @@
-import { StoreState } from '~/store/default-state';
-import { defaultState } from '~/store/default-state';
-import { createLoadingSlice, LoadingSlice } from '~/store/slices/loading-slice';
+import { StoreState } from '@/store/default-state';
+import { defaultState } from '@/store/default-state';
+import { createLoadingSlice, LoadingSlice } from '@/store/slices/loading-slice';
 
 import { createStore } from 'zustand/vanilla';
 

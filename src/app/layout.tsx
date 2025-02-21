@@ -1,9 +1,8 @@
-import '~/styles/globals.css';
-import Providers from '~/app/providers';
-import { cn } from '~/lib/utils';
-
-import TailwindBreakpointIndicator from '~/components/common/tailwind-breakpoint-indicator';
-import { Toaster } from '~/components/ui/toaster';
+import '@/styles/globals.css';
+import Providers from '@/app/providers';
+import TailwindBreakpointIndicator from '@/components/common/tailwind-breakpoint-indicator';
+import { Toaster } from '@/components/ui/sonner';
+import { cn } from '@/lib/utils';
 
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
@@ -28,7 +27,7 @@ export default function RootLayout({
 			<body
 				suppressHydrationWarning
 				className={cn(
-					'min-h-screen bg-background font-sans antialiased',
+					'bg-background min-h-screen font-sans antialiased',
 					fontSans.variable,
 				)}
 			>

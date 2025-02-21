@@ -1,5 +1,5 @@
-import { helloKeys } from '~/lib/api/queryKeys';
-import { getHello } from '~/lib/api/requests/hello';
+import { helloKeys } from '@/lib/api/queryKeys';
+import { getHello } from '@/lib/api/requests/hello';
 
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
