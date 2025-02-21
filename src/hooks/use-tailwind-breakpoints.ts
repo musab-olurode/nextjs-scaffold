@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { TailwindBreakpoints } from '~/lib/types';
+import { TailwindBreakpoints } from '@/lib/types';
 
 const useTailwindBreakpoints = (): TailwindBreakpoints => {
 	const [breakpoints, setBreakpoints] = useState<TailwindBreakpoints>({

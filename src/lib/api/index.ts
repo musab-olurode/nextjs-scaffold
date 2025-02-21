@@ -1,4 +1,4 @@
-import { ModifiedAxiosRequestConfig } from '~/lib/api/types';
+import { ModifiedAxiosRequestConfig } from '@/lib/api/types';
 
 import axios from 'axios';
 

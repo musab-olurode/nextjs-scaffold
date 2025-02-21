@@ -1,5 +1,5 @@
-import { axiosInstance } from '~/lib/api';
-import { SigninRequest } from '~/lib/api/types';
+import { axiosInstance } from '@/lib/api';
+import { SigninRequest } from '@/lib/api/types';
 
 export const signin = async (payload: SigninRequest) => {
 	const { data } = await axiosInstance.post('/auth/signin', payload);

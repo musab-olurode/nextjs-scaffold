@@ -1,11 +1,8 @@
 'use client';
 
-import { FailureResponse, SuccessResponse } from '~/lib/api/types';
-import { AppStoreProvider } from '~/store/store-provider';
-
-import { useToast } from '~/hooks/use-toast';
-
-import { ThemeProvider } from '~/components/common/theme-provider';
+import { ThemeProvider } from '@/components/common/theme-provider';
+import { FailureResponse, SuccessResponse } from '@/lib/api/types';
+import { AppStoreProvider } from '@/store/store-provider';
 
 import {
 	isServer,
@@ -14,11 +11,9 @@ import {
 	QueryClientProvider,
 } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { toast } from 'sonner';
 
 function makeQueryClient() {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const { toast } = useToast();
-
 	function handleOnRequestError(error: AxiosError<FailureResponse> | Error) {
 		const errorTitle =
 			(error as AxiosError<FailureResponse>).response?.data.error ||
@@ -28,17 +23,13 @@ function makeQueryClient() {
 			error.message ||
 			'There was a problem with your request.';
 
-		toast({
-			variant: 'destructive',
-			title: errorTitle,
+		toast.error(errorTitle, {
 			description: errorMessage,
 		});
 	}
 
 	function handleOnRequestSuccess(data: unknown) {
-		toast({
-			description: (data as SuccessResponse<unknown>).message,
-		});
+		toast.success((data as SuccessResponse<unknown>).message);
 	}
 
 	return new QueryClient({

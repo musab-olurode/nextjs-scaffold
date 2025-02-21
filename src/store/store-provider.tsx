@@ -2,7 +2,7 @@
 
 import { createContext, type ReactNode, useContext, useRef } from 'react';
 
-import { createAppStore, initStore, Store } from '~/store';
+import { createAppStore, initStore, Store } from '@/store';
 
 import { type StoreApi, useStore as useZustandStore } from 'zustand';
 import { useShallow } from 'zustand/shallow';

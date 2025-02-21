@@ -1,7 +1,7 @@
 import {
 	initialLoadingState,
 	LoadingState,
-} from '~/store/slices/loading-slice';
+} from '@/store/slices/loading-slice';
 
 export type StoreState = LoadingState;
 

@@ -1,6 +1,6 @@
-import { authKeys } from '~/lib/api/queryKeys';
-import { signin, signout } from '~/lib/api/requests/auth';
-import { AuthData, SigninRequest, SuccessResponse } from '~/lib/api/types';
+import { authKeys } from '@/lib/api/queryKeys';
+import { signin, signout } from '@/lib/api/requests/auth';
+import { AuthData, SigninRequest, SuccessResponse } from '@/lib/api/types';
 
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
