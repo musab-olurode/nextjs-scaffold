@@ -70,8 +70,8 @@
 				"groups": [
 					["^react"], // React imports
 					["^"], // Other imports (e.g., styles, images)
-					["^~/hooks"], // Hooks
-					["^~/components"], // Components
+					["^@/hooks"], // Hooks
+					["^@/components"], // Components
 					["^@?\\w"], // Other node_modules
 					["^\\."] // Relative imports
 				]

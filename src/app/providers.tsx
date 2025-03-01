@@ -1,8 +1,9 @@
 'use client';
 
-import { ThemeProvider } from '@/components/common/theme-provider';
 import { FailureResponse, SuccessResponse } from '@/lib/api/types';
 import { AppStoreProvider } from '@/store/store-provider';
+
+import { ThemeProvider } from '@/components/common/theme-provider';
 
 import {
 	isServer,

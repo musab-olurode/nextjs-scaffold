@@ -1,8 +1,9 @@
 import '@/styles/globals.css';
 import Providers from '@/app/providers';
+import { cn } from '@/lib/utils';
+
 import TailwindBreakpointIndicator from '@/components/common/tailwind-breakpoint-indicator';
 import { Toaster } from '@/components/ui/sonner';
-import { cn } from '@/lib/utils';
 
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';

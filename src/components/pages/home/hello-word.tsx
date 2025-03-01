@@ -1,5 +1,7 @@
 'use client';
 
+import { useGetHello } from '@/lib/api/queries/hello';
+
 import { Button } from '@/components/ui/button';
 import {
 	DropdownMenu,
@@ -8,7 +10,6 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useGetHello } from '@/lib/api/queries/hello';
 
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
