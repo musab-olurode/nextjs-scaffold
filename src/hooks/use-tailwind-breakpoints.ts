@@ -11,6 +11,7 @@ const useTailwindBreakpoints = (): TailwindBreakpoints => {
 		lg: false,
 		xl: false,
 		'2xl': false,
+		width: 0,
 	});
 
 	useEffect(() => {
@@ -23,6 +24,7 @@ const useTailwindBreakpoints = (): TailwindBreakpoints => {
 				lg: width >= 1024,
 				xl: width >= 1280,
 				'2xl': width >= 1536,
+				width,
 			});
 		};
 

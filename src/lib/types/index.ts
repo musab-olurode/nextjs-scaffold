@@ -4,4 +4,5 @@ export type TailwindBreakpoints = {
 	lg: boolean;
 	xl: boolean;
 	'2xl': boolean;
+	width: number;
 };
