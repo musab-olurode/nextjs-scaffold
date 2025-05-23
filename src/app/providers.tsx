@@ -1,6 +1,6 @@
 'use client';
 
-import { FailureResponse, SuccessResponse } from '@/lib/api/types';
+import { BetterAuthError, FailureResponse } from '@/lib/api/types';
 import { AppStoreProvider } from '@/store/store-provider';
 
 import { ThemeProvider } from '@/components/common/theme-provider';
@@ -11,18 +11,25 @@ import {
 	QueryClient,
 	QueryClientProvider,
 } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
 import { toast } from 'sonner';
 
 function makeQueryClient() {
-	function handleOnRequestError(error: AxiosError<FailureResponse> | Error) {
-		const errorTitle =
-			(error as AxiosError<FailureResponse>).response?.data.error ||
-			'Uh oh! Something went wrong.';
-		const errorMessage =
-			(error as AxiosError<FailureResponse>).response?.data.message ||
-			error.message ||
-			'There was a problem with your request.';
+	function handleOnRequestError(
+		error: BetterAuthError | AxiosError<FailureResponse> | Error,
+	) {
+		let errorTitle = 'Uh oh! Something went wrong.';
+		let errorMessage =
+			error.message || 'There was a problem with your request.';
+
+		if (error instanceof AxiosError) {
+			errorTitle = error.response?.data.error ?? errorTitle;
+			errorMessage = error.response?.data.message ?? errorMessage;
+		} else if ('error' in error) {
+			errorTitle = error.error.error;
+			errorMessage = error.error.message;
+		}
 
 		toast.error(errorTitle, {
 			description: errorMessage,
@@ -30,7 +37,9 @@ function makeQueryClient() {
 	}
 
 	function handleOnRequestSuccess(data: unknown) {
-		toast.success((data as SuccessResponse<unknown>).message);
+		toast.success(
+			(data as { message: string | undefined }).message ?? 'Success',
+		);
 	}
 
 	return new QueryClient({
@@ -41,7 +50,9 @@ function makeQueryClient() {
 			},
 		},
 		queryCache: new QueryCache({
-			onError: (error) => handleOnRequestError(error),
+			onError: (error) => {
+				handleOnRequestError(error);
+			},
 		}),
 	});
 }
@@ -52,7 +63,7 @@ function getQueryClient() {
 	if (isServer) {
 		return makeQueryClient();
 	}
-	if (!browserQueryClient) browserQueryClient = makeQueryClient();
+	browserQueryClient ??= makeQueryClient();
 
 	return browserQueryClient;
 }
@@ -70,6 +81,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
 			<AppStoreProvider>
 				<QueryClientProvider client={queryClient}>
 					{children}
+					{process.env.NODE_ENV !== 'production' && <ReactQueryDevtools />}
 				</QueryClientProvider>
 			</AppStoreProvider>
 		</ThemeProvider>
