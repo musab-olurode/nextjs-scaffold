@@ -2,7 +2,7 @@ function TailwindBreakpointIndicator() {
 	if (
 		process.env.NODE_ENV === 'production' ||
 		!JSON.parse(
-			process.env.NEXT_PUBLIC_TAILWIND_BREAKPOINT_INDICATOR || 'false',
+			process.env.NEXT_PUBLIC_TAILWIND_BREAKPOINT_INDICATOR ?? 'false',
 		)
 	)
 		return null;

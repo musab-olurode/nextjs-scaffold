@@ -1,33 +1,42 @@
-import { decrypt } from '@/lib/session';
-
-import { cookies } from 'next/headers';
+import { getSessionCookie } from 'better-auth/cookies';
 import { NextRequest, NextResponse } from 'next/server';
 
 // 1. Specify protected and public routes
-const protectedRoutes = ['/dashboard'];
+const protectedRoutes = ['/dashboard(.*)'];
 const publicRoutes = ['/'];
 
-export default async function middleware(req: NextRequest) {
+const createRouteMatcher = (routes: string[]) => {
+	return (path: string) => {
+		return routes.some((route) => {
+			// If the route contains regex pattern characters, treat it as a regex
+			if (route.includes('(') || route.includes('*')) {
+				const regex = new RegExp(`^${route}$`);
+
+				return regex.test(path);
+			}
+
+			// Otherwise, do an exact match
+			return route === path;
+		});
+	};
+};
+
+export default function middleware(req: NextRequest) {
 	// 2. Check if the current route is protected or public
 	const path = req.nextUrl.pathname;
-	const isProtectedRoute = protectedRoutes.includes(path);
-	const isPublicRoute = publicRoutes.includes(path);
+	const isProtectedRoute = createRouteMatcher(protectedRoutes)(path);
+	const isPublicRoute = createRouteMatcher(publicRoutes)(path);
 
-	// 3. Decrypt the session from the cookie
-	const accessToken = (await cookies()).get('accessToken')?.value;
-	const session = accessToken ? decrypt(accessToken) : null;
+	// 3. Get the session cookie
+	const cookie = getSessionCookie(req);
 
 	// 5. Redirect to / if the user is not authenticated
-	if (isProtectedRoute && !session?.sub) {
+	if (isProtectedRoute && !cookie) {
 		return NextResponse.redirect(new URL('/', req.nextUrl));
 	}
 
 	// 6. Redirect to /dashboard if the user is authenticated
-	if (
-		isPublicRoute &&
-		session?.sub &&
-		!req.nextUrl.pathname.startsWith('/dashboard')
-	) {
+	if (isPublicRoute && cookie && !path.startsWith('/dashboard')) {
 		return NextResponse.redirect(new URL('/dashboard', req.nextUrl));
 	}
 

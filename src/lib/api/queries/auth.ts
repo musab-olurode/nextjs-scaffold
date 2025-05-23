@@ -1,18 +1,22 @@
 import { authKeys } from '@/lib/api/queryKeys';
-import { getAuthUser } from '@/lib/api/requests/auth';
-import { AuthData, SuccessResponse } from '@/lib/api/types';
+import { getSession } from '@/lib/api/requests/auth';
 
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-export const useGetAuthUser = (
+export const useSession = (
 	options?: Partial<
-		UseQueryOptions<unknown, AxiosError, SuccessResponse<AuthData>, string[]>
+		UseQueryOptions<
+			unknown,
+			AxiosError,
+			Awaited<ReturnType<typeof getSession>>,
+			string[]
+		>
 	>,
 ) => {
 	return useQuery({
 		queryKey: [authKeys.read],
-		queryFn: getAuthUser,
+		queryFn: getSession,
 		...options,
 	});
 };

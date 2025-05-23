@@ -1,3 +1,5 @@
+import { User } from '@/lib/types/user';
+
 import { AxiosRequestConfig } from 'axios';
 
 export type ModifiedAxiosRequestConfig = AxiosRequestConfig & {
@@ -7,6 +9,16 @@ export type ModifiedAxiosRequestConfig = AxiosRequestConfig & {
 export type SigninRequest = {
 	email: string;
 	password: string;
+	callbackURL?: string;
+};
+
+export type SignupRequest = {
+	email: string;
+	password: string;
+	firstName: string;
+	lastName: string;
+	role: string;
+	callbackURL?: string;
 };
 
 export enum AppPermissions {
@@ -14,16 +26,6 @@ export enum AppPermissions {
 	READ_USERS = 'read:users',
 	UPDATE_USERS = 'update:users',
 }
-
-export type User = {
-	id: string;
-	email: string;
-	firstName: string;
-	lastName: string;
-	permissions: AppPermissions[];
-	createdAt: string;
-	updatedAt: string;
-};
 
 export type AuthData = {
 	user: User;
@@ -42,3 +44,9 @@ export type FailureResponse = {
 	message: string;
 	error: string;
 };
+
+export interface BetterAuthError extends Error {
+	status: number;
+	statusText: string;
+	error: FailureResponse;
+}

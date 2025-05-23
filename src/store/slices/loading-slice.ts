@@ -21,5 +21,7 @@ export const createLoadingSlice: StateCreator<
 	LoadingSlice
 > = (set) => ({
 	...initialLoadingState,
-	setIsLoading: (isLoading: boolean) => set({ isLoading }),
+	setIsLoading: (isLoading: boolean) => {
+		set({ isLoading });
+	},
 });

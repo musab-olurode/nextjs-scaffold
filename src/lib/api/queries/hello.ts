@@ -4,7 +4,7 @@ import { getHello } from '@/lib/api/requests/hello';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-export const useGetHello = (
+export const useHello = (
 	options?: Partial<UseQueryOptions<unknown, AxiosError, string, string[]>>,
 ) => {
 	return useQuery({

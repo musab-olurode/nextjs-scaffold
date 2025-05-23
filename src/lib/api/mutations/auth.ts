@@ -1,17 +1,15 @@
 import { authKeys } from '@/lib/api/queryKeys';
-import { signin, signout } from '@/lib/api/requests/auth';
-import { AuthData, SigninRequest, SuccessResponse } from '@/lib/api/types';
+import { signin, signout, signup } from '@/lib/api/requests/auth';
+import { BetterAuthError, SigninRequest, SignupRequest } from '@/lib/api/types';
 
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 
 export const useSignin = (
 	options?: Partial<
 		UseMutationOptions<
-			SuccessResponse<AuthData>,
-			AxiosError,
-			SigninRequest,
-			unknown
+			Awaited<ReturnType<typeof signin>>,
+			BetterAuthError,
+			SigninRequest
 		>
 	>,
 ) => {
@@ -22,9 +20,25 @@ export const useSignin = (
 	});
 };
 
+export const useSignup = (
+	options?: Partial<
+		UseMutationOptions<
+			Awaited<ReturnType<typeof signup>>,
+			BetterAuthError,
+			SignupRequest
+		>
+	>,
+) => {
+	return useMutation({
+		mutationKey: [authKeys.create],
+		mutationFn: signup,
+		...options,
+	});
+};
+
 export const useSignout = (
 	options?: Partial<
-		UseMutationOptions<SuccessResponse<undefined>, AxiosError, void, unknown>
+		UseMutationOptions<Awaited<ReturnType<typeof signout>>, BetterAuthError>
 	>,
 ) => {
 	return useMutation({
